@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 try:
     from django.utils.six.moves.urllib.parse import quote
 except ImportError:
-    from urllib import quote
+    from urllib.parse import quote
 
 #Logout settings.
 from shibboleth.app_settings import LOGOUT_URL, LOGOUT_REDIRECT_URL
@@ -26,7 +26,7 @@ class ShibbolethView(TemplateView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         """
-        Django docs say to decorate the dispatch method for 
+        Django docs say to decorate the dispatch method for
         class based views.
         https://docs.djangoproject.com/en/dev/topics/auth/
         """
