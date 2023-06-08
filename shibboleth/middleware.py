@@ -12,12 +12,18 @@ except ImportError:
 
 from shibboleth.app_settings import SHIB_ATTRIBUTE_MAP, GROUP_ATTRIBUTES, GROUP_DELIMITERS, UNQUOTE_ATTRIBUTES
 
+def dummy_get_response():
+    return None
 
 class ShibbolethRemoteUserMiddleware(RemoteUserMiddleware):
     """
     Authentication Middleware for use with Shibboleth.  Uses the recommended pattern
     for remote authentication from: http://code.djangoproject.com/svn/django/tags/releases/1.3/django/contrib/auth/middleware.py
     """
+    def __init__(self, get_response=dummy_get_response):
+        super().__init__(get_response)
+
+
     def process_request(self, request):
         # AuthenticationMiddleware is required so that request.user exists.
         if not hasattr(request, 'user'):
